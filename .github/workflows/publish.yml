@@ -39,21 +39,15 @@ jobs:
           npm run build
           sed -i -e '/lib\//d' .gitignore
 
-      - name: Publish to NPM
-        if: "!contains(github.event.inputs.skip, 'skip-npm')"
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: Change to GitHub Packages registry
         uses: actions/setup-node@v4
         with:
           registry-url: https://npm.pkg.github.com
-          scope: '@shivammathur'
+          scope: '@laurentu'
 
       - name: Patch package.json
         run: |
-          sed -i 's#"name": "#"name": "@shivammathur/#' package.json
+          sed -i 's#"name": "#"name": "@laurentu/#' package.json
 
       - name: Publish to GitHub Packages
         if: "!contains(github.event.inputs.skip, 'skip-github-packages')"
